@@ -12,6 +12,24 @@ nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
 The distinct triplets are [-1,0,1] and [-1,-1,2].
 Notice that the order of the output and the order of the triplets does not matter.*/
 
+/*Base cases after sorting:
+If array size is < 3, means no triplet would exist from that array. Return empty vector of vectors.
+If first element is +ve, that means there is no -ve number by which we can make a 0 triplet sum. Return empty vector of vectors.
+    
+Two Pointer Approach:
+The basic thinking logic for this is: Fix any one number in sorted array and find the other two numbers after it. The other two numbers can be easily found using 
+two pointers (as array is sorted) and two numbers should have sum = -1*(fixed number).
+
+Traverse the array and fix a number at every iteration.
+If number fixed is +ve, break there because we can't make it zero by searching after it.
+If number is getting repeated, ignore the lower loop and continue. This is for unique triplets. We want the last instance of the fixed number, if it is repeated.
+Make two pointers high and low, and initialize sum as 0.
+Search between two pointers, just similiar to binary search. Sum = num[i] + num[low] + num[high].
+If sum is -ve, means, we need more +ve numbers to make it 0, increament low (low++).
+If sum is +ve, means, we need more -ve numbers to make it 0, decreament high (high--).
+If sum is 0, that means we have found the required triplet, push it in answer vector.
+Now again, to avoid duplicate triplets, we have to navigate to last occurences of num[low] and num[high] respectively. Update the low and high with last occurences 
+of low and high.*/
 
 class Solution {
 public:
@@ -56,3 +74,5 @@ public:
         return result;
     }
 };
+
+/*
